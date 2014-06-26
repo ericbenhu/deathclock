@@ -1,17 +1,9 @@
-//import java.lang.reflect.Array;
 import java.util.Random;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
 
-//import org.newdawn.slick.AppGameContainer;
-//import org.newdawn.slick.BasicGame;
-//import org.newdawn.slick.GameContainer;
-//import org.newdawn.slick.Graphics;
-//import org.newdawn.slick.SlickException;
 
 
 public class main {
-	Player one = new Player(20, new Card[]{null, new vee(),null, new vo(),null, new Card(), null});
+	Player one = new Player(20, new Card[]{null, new vee(),null, new vo(),null, null});
 	int t;
 	public static void main(String[] args)
 	{
@@ -34,7 +26,7 @@ public class main {
 	class Player
 	{
 		Random Rand= new Random();
-		int turns,rand;
+		int turns,rand,morale;
 		Pile Deck, Extra, Hand, Grave, Oblivion;
 		boolean win,lose;
 		public Player(int turns, Card[] Deck)
@@ -52,22 +44,62 @@ public class main {
 		}
 		
 	}
-	class Card
+	abstract class Card
 	{
+		private int value,cost,refund;
+		private int hp,stam;
+		private skill[] skills;
+		private effect[] effects;
+		private String[] types, subtypes, clans;
 		public Card(){} 
-		public String toString() {return "Card ";}
+		public String toString() {return getClass().getSimpleName() ;}
 	}
+    abstract class effect{
+    	private String[] triggers;
+    	private Card user;
+    	private Card[] targets;
+    }
+    abstract class skill{
+    	private int rating,castTime,stamina,aggro;
+    	private GridPt[] telegraph;
+    	private Card user;
+    	private Card[] targets;
+    }
+    class GridPt{ //for skirmishes
+    	public int x,y;
+    	public GridPt(int x, int y){
+    		this.x=x;
+    		this.y=y;
+    	}
+    }
+    class HexPt{ //for map,meant to be relative
+    	public int a,b,c; //upleft,up,upright
+    	public HexPt(int a, int b, int c){
+    		this.a=a;
+    		this.b=b;
+    		this.c=c;
+    	}
+    	public HexPt plus(HexPt p){
+    		return new HexPt(a+p.a,b+p.b,c+p.c);
+    	}
+    	public HexPt minus(HexPt p){
+    		return new HexPt(a-p.a,b-p.b,c-p.c);
+    	}
+    	public HexPt neg(){
+    		return new HexPt(-a,-b,-c);
+    	}
+    	public int distance(){
+    		return Math.abs(a)+Math.abs(b)+Math.abs(c);
+    	}
+    	
+    }
 	class vee extends Card
 	{
 		public vee() {super();}
-		@Override
-		public String toString() {return "vee ";}
 	}
 	class vo extends Card
 	{
 		public vo() {super();}
-		@Override
-		public String toString() {return "vo ";}
 	}
 	class Pile
 	{
@@ -84,7 +116,7 @@ public class main {
 		{
 			boolean success=true;
 			int place=start;
-			Card temp=new Card();
+			Card temp = null;
 			collapse();
 	 //assume nulls follow cards due to collapse
 			int last=cards.length-dist-1;
