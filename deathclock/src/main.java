@@ -83,7 +83,7 @@ public class main {
     	}
     	public HexPt minus(HexPt p){
     		return new HexPt(l-p.l,r-p.r);
-    	}
+    	}//blah
     	public HexPt neg(){
     		return new HexPt(-l,-r);
     	}
