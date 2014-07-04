@@ -72,6 +72,22 @@ public class main {
     		this.y=y;
     	}
     }
+    class HexGrid{
+    	int radius;//max distance in any combination of directions
+    	int hexes(){
+    		int result=1;
+    		if (radius>0) 
+    			for(int i=1;i<=radius;i++)
+    				result+=i*6;
+    		return result;
+    	}
+    	HexPt[][][] grid; //uses a,b,c of hexpts as values. Negative a,b,c's are offset by the radius
+    	public HexGrid(int radius){
+    		this.radius=radius;
+    		int reserved=radius*2 ;
+    		grid=new HexPt[reserved][reserved][reserved];
+    	}
+    }
     class HexPt{ //for map,meant to be relative
     	public int a,b,c; //upleft,up,upright
     	public HexPt(int a, int b, int c){
@@ -217,7 +233,7 @@ public class main {
 		String conct= new String();
 		for(Card c:cards)
 		{
-			if(c!=null) conct += c.toString();
+			if(c!=null) conct += (c.toString()+" ");
 			else conct+="null ";
 		}
 		return conct;
