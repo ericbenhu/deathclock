@@ -51,15 +51,17 @@ public class main {
 		private skill[] skills;
 		private effect[] effects;
 		private String[] types, subtypes, clans;
+		private Pile pile;
+		public Pile getPile(){return pile;}
 		public Card(){} 
 		public String toString() {return getClass().getSimpleName() ;}
 	}
-    abstract class effect{
+    abstract class effect{ //map
     	private String[] triggers;
     	private Card user;
     	private Card[] targets;
     }
-    abstract class skill{
+    abstract class skill{ //skirmish
     	private int rating,castTime,stamina,aggro;
     	private GridPt[] telegraph;
     	private Card user;
