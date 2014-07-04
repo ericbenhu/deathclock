@@ -89,25 +89,23 @@ public class main {
     	}
     }
     class HexPt{ //for map,meant to be relative
-    	public int a,b,c; //upleft,up,upright
-    	public HexPt(int a, int b, int c){
-    		this.a=a;
-    		this.b=b;
-    		this.c=c;
+    	public int l,r; //upleft,upright
+    	public HexPt(int l, int r){
+    		this.l=l;
+    		this.r=r;
     	}
     	public HexPt plus(HexPt p){
-    		return new HexPt(a+p.a,b+p.b,c+p.c);
+    		return new HexPt(l+p.l,r+p.r);
     	}
     	public HexPt minus(HexPt p){
-    		return new HexPt(a-p.a,b-p.b,c-p.c);
-    	}
+    		return new HexPt(l-p.l,r-p.r);
+    	}//blah
     	public HexPt neg(){
-    		return new HexPt(-a,-b,-c);
+    		return new HexPt(-l,-r);
     	}
     	public int distance(){
-    		return Math.abs(a)+Math.abs(b)+Math.abs(c);
+    		return Math.abs(l)+Math.abs(r)-Math.min(Math.abs(l),Math.abs(r));
     	}
-    	
     }
 	class vee extends Card
 	{
